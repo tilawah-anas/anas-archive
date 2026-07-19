@@ -1,0 +1,10 @@
+--color-1: #313332;
+--color-2: #E6D7C4;
+--color-3: #CCBAA6;
+--color-4: #AF9E8E;
+--color-5: #474642;
+--color-6: #705E52;
+--color-7: #5F5C57;
+--color-8: #8C857B;
+--color-9: #9E8976;
+--color-10: #877163;

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Holy Quran</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    
+    <header>
+
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+
+            <div class="nav-left">
+                <a href="#"><img src="../assets/anas-pfp.jpg" alt="Anas"></a>
+                <p>Sheikh Anas Al Emadi</p>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+
+            <ul class="nav-links" id="navLinks">
+                <li class="sidebar-header">
+                    <span>Navigation</span>
+                    <i class="fa-solid fa-xmark" id="closeBtn"></i>
+                </li>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html">Ramadan</a></li>
+                <li><a href="../index.html">Jumu'ah</a></li>
+                <li><a href="../index.html">Duroos</a></li>
+            </ul>
+
+        </nav>
+
+        <!-- Overlay dims the background when sidebar is open -->
+        <div class="overlay" id="overlay"></div>
+
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <h1 class="quran-title">The Complete Quran</h1>
+        </section>  
+        
+        <hr>
+
+        <section class="quran-library">
+            <div id="surah-list" class="grid-container">
+                <!-- JS will fill this in automatically -->
+            </div>
+        </section>
+              
+    </main>
+
+    <footer>
+        <p>&copy; 2026 anas_.alemadi. All Rights Reserved</p>
+    </footer>
+
+    <script src="../script.js"></script>
+
+</body>
+</html>
