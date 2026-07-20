@@ -11,5 +11,5 @@
 
 
 git add .
-git commit -m "describe what you changed"
+git commit -m "update"
 git push origin main

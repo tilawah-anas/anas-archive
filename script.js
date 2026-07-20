@@ -75,31 +75,40 @@ if (ramadanContainer) {
       .eq('year', year)
       .order('number', { ascending: true });
 
-    if (error) {
-      console.error('Error fetching Ramadan nights:', error);
-      return;
+      if (error) {
+        console.error('Error fetching Ramadan nights:', error);
+        return;
+      }
+
+      ramadanContainer.innerHTML = '';
+
+      data.forEach(entry => {
+        const card = document.createElement('div');
+        card.className = 'recitation-card';
+        
+        let label;
+        if (entry.year == 1446) {
+          label = `${entry.title}${entry.translation ? ' - ' + entry.translation : ''}`;
+        } else {
+          label = `Night ${entry.number}`;
+        }
+
+        card.innerHTML = `
+          <h2>${label}</h2>
+          <audio controls src="${entry.audio_url}"></audio>
+        `;
+        ramadanContainer.appendChild(card);
+      });
     }
 
-    ramadanContainer.innerHTML = '';
-
-    data.forEach(night => {
-      const card = document.createElement('div');
-      card.className = 'recitation-card';
-      card.innerHTML = `
-        <h2>Night ${night.number}</h2>
-        <audio controls src="${night.audio_url}"></audio>
-      `;
-      ramadanContainer.appendChild(card);
-    });
-  }
-
-  document.querySelectorAll('.year-btn').forEach(btn => {
+    document.querySelectorAll('.year-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      loadRamadan(btn.dataset.year);
+      loadRamadan(Number(btn.dataset.year)); // convert string to number
     });
   });
 
-  loadRamadan(1447); // default year on page load
+  loadRamadan(1447); // already a number, no change needed here // default year on page load
+
 }
