@@ -8,3 +8,8 @@
 --color-8: #8C857B;
 --color-9: #9E8976;
 --color-10: #877163;
+
+
+git add .
+git commit -m "describe what you changed"
+git push origin main
