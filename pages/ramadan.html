@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramadan Recordings</title>
+    <title>Ramadan Nights</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -43,7 +43,26 @@
 
     </header>
 
-    <main></main>
+    <main>
+
+        <section class="hero">
+            <h1 class="quran-title">Ramadan Nights</h1>
+        </section>
+
+        <hr>
+
+        <section class="year-tabs">
+            <button class="year-btn active" data-year="1447">1447 AH</button>
+            <button class="year-btn" data-year="1446">1446 AH</button>
+        </section>
+
+        <section class="quran-library">
+            <div id="ramadan-list" class="ramadan-grid">
+                <!-- JS fills this based on selected year -->
+            </div>
+        </section>
+
+    </main>
 
     <footer>
         <div class="social-links">

@@ -61,3 +61,45 @@ document.addEventListener('play', function(e) {
     }
   });
 }, true);
+
+
+// RAMADAN PAGE
+const ramadanContainer = document.getElementById('ramadan-list');
+
+if (ramadanContainer) {
+  async function loadRamadan(year) {
+    const { data, error } = await supabaseClient
+      .from('recitations')
+      .select('*')
+      .eq('category', 'Ramadan')
+      .eq('year', year)
+      .order('number', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching Ramadan nights:', error);
+      return;
+    }
+
+    ramadanContainer.innerHTML = '';
+
+    data.forEach(night => {
+      const card = document.createElement('div');
+      card.className = 'recitation-card';
+      card.innerHTML = `
+        <h2>Night ${night.number}</h2>
+        <audio controls src="${night.audio_url}"></audio>
+      `;
+      ramadanContainer.appendChild(card);
+    });
+  }
+
+  document.querySelectorAll('.year-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadRamadan(btn.dataset.year);
+    });
+  });
+
+  loadRamadan(1447); // default year on page load
+}

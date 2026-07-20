@@ -294,6 +294,50 @@ hr {
   height: 36px;
 }
 
+/* RAMADAN NIGHTS */
+.year-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px 0;
+}
+
+.year-btn {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 25px;
+    background: transparent;
+    color: #313332;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid #AF9E8E;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.year-btn.active {
+    background: #AF9E8E;
+    color: #fff;
+}
+
+.year-btn:hover {
+    background: #AF9E8E;
+    color: #fff;
+}
+
+.ramadan-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+@media (max-width: 600px) {
+  .ramadan-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Footer - SOCIAL LINKS */
 
 .social-links {
