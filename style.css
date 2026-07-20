@@ -325,13 +325,6 @@ hr {
     color: #fff;
 }
 
-.ramadan-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  padding: 1rem 0;
-}
-
 @media (max-width: 600px) {
   .ramadan-grid {
     grid-template-columns: 1fr;
