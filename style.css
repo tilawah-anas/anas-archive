@@ -294,7 +294,25 @@ hr {
   height: 36px;
 }
 
-/* Footer */
+/* Footer - SOCIAL LINKS */
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-links a {
+    color: #313332;
+    font-size: 18px;
+    transition: color 0.2s ease;
+}
+
+.social-links a:hover {
+    color: #E6D7C4;
+}
+
+/* FOOTER TEXT */
 footer {
     background-color: #AF9E8E;
     color: #313332;
