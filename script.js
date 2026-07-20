@@ -110,5 +110,99 @@ if (ramadanContainer) {
   });
 
   loadRamadan(1447); // already a number, no change needed here // default year on page load
+}
 
+
+// KHUTBAH PAGE
+const khutbahContainer = document.getElementById('khutbah-list');
+if (khutbahContainer) {
+  loadGroupedByMonth('Khutbah', khutbahContainer, true); // true = has two audio parts
+}
+
+// DUROOS PAGE
+const duroosContainer = document.getElementById('duroos-list');
+if (duroosContainer) {
+  loadGroupedByMonth('Duroos', duroosContainer, false); // false = single audio only
+}
+
+// Shared function for month-grouped, lazy-loaded display
+async function loadGroupedByMonth(category, container, hasTwoParts) {
+  const { data, error } = await supabaseClient
+    .from('recitations')
+    .select('*')
+    .eq('category', category)
+    .order('date', { ascending: false });
+
+  if (error) {
+    console.error(`Error fetching ${category}:`, error);
+    return;
+  }
+
+  const groups = {};
+  data.forEach(entry => {
+    const dateObj = new Date(entry.date);
+    const monthLabel = dateObj.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+    if (!groups[monthLabel]) groups[monthLabel] = [];
+    groups[monthLabel].push(entry);
+  });
+
+  container.innerHTML = '';
+  let isFirst = true;
+
+  for (const month in groups) {
+    const section = document.createElement('div');
+    section.className = 'month-group';
+
+    const header = document.createElement('div');
+    header.className = 'month-header';
+    header.innerHTML = `<span>${month} (${groups[month].length})</span> <i class="fa-solid fa-chevron-down"></i>`;
+
+    const grid = document.createElement('div');
+    grid.className = 'month-grid';
+    grid.style.display = isFirst ? 'grid' : 'none';
+
+    let built = false;
+
+    function buildCards() {
+      if (built) return;
+      groups[month].forEach(entry => {
+        const card = document.createElement('div');
+        card.className = 'recitation-card';
+
+        const audioSection = hasTwoParts
+          ? `
+            <p class="audio-label">Khutbah</p>
+            <audio controls src="${entry.audio_url}"></audio>
+            <p class="audio-label">Salah</p>
+            <audio controls src="${entry.audio_url_2}"></audio>
+          `
+          : `<audio controls src="${entry.audio_url}"></audio>`;
+
+        card.innerHTML = `
+          <h2>${entry.title}</h2>
+          <p class="entry-meta">${entry.hijri_date || ''}${entry.date ? ' | ' + new Date(entry.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : ''}</p>
+          ${entry.surahs_recited ? `<p class="entry-surahs">Recited: ${entry.surahs_recited}</p>` : ''}
+          ${entry.location ? `<p class="entry-location"><i class="fa-solid fa-location-dot"></i> ${entry.location}</p>` : ''}
+          ${audioSection}
+        `;
+        grid.appendChild(card);
+      });
+      built = true;
+    }
+
+    if (isFirst) buildCards();
+
+    header.addEventListener('click', () => {
+      const isOpening = grid.style.display === 'none';
+      if (isOpening) buildCards();
+      grid.style.display = isOpening ? 'grid' : 'none';
+      header.querySelector('i').classList.toggle('fa-chevron-down');
+      header.querySelector('i').classList.toggle('fa-chevron-up');
+    });
+
+    section.appendChild(header);
+    section.appendChild(grid);
+    container.appendChild(section);
+    isFirst = false;
+  }
 }
